@@ -37,14 +37,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return inertia("User/Create");
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreUserRequest $request)
@@ -56,36 +48,5 @@ class UserController extends Controller
 
         return to_route('user.index')
             ->with('success', 'User was created');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        return inertia('User/Edit', [
-            'user' => new UserCrudResource($user),
-        ]);
-    }
-
-  
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        $name = $user->name;
-        $user->delete();
-        return to_route('user.index')
-            ->with('success', "User \"$name\" was deleted");
     }
 }

@@ -12,7 +12,6 @@ use Inertia\Inertia;
 Route::redirect('/', '/movie');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-  
     Route::resource('user', UserController::class);
     Route::resource('movie', MovieController::class);
 });

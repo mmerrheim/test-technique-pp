@@ -45,14 +45,6 @@ class MovieController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit($user, Request $request)
@@ -69,29 +61,5 @@ class MovieController extends Controller
         return inertia('Movie/Edit', [
             'user' => new MovieCrudResource($response->object()),
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMovieRequest $request, Movie $movie)
-    {
-        $data = $request->validated();
-
-        $movie->update($data);
-
-        return to_route('movie.index')
-            ->with('success', "User \"$movie->title\" was updated");
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Movie $movie)
-    {
-        $title = $movie->title;
-
-        return to_route('movie.index')
-            ->with('success', "User \"$title\" was deleted");
     }
 }
