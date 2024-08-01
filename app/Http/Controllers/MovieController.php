@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
+    const API_KEY = '9f72e720a712b60c0e998e14939b3be9';
+
+    const URL = 'https://api.themoviedb.org';
+
     public function index()
     {
         $query = Movie::query();
@@ -53,7 +57,14 @@ class MovieController extends Controller
      */
     public function edit($user, Request $request)
     {
-        $response = Http::get('https://api.themoviedb.org/3/movie/'.$user.'?api_key=9f72e720a712b60c0e998e14939b3be9');
+        $response = Http::get(
+            sprintf(
+                '%s/3/movie/%s?api_key=%s',
+                self::URL,
+                $user,
+                self::API_KEY
+            )
+        );
         
         return inertia('Movie/Edit', [
             'user' => new MovieCrudResource($response->object()),
