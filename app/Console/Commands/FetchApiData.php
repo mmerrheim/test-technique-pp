@@ -31,31 +31,39 @@ class FetchApiData extends Command
     public function handle()
     {
         $numberOfPages = 10;
-
-        for ($pageIndex=1; $pageIndex<=$numberOfPages;$pageIndex++) {
-            $response = Http::get(
-                sprintf(
-                    '%s/3/trending/all/day?page=%d&api_key=%s',
-                    self::URL,
-                    $pageIndex,
-                    self::API_KEY
-                )
-            );
         
-            $movies = $response->object()->results;
-    
-            if ($response->successful()) {
-                foreach ($movies as $movie) {
-                    if (property_exists($movie, 'title')) {
-                        Movie::create([
-                            'id' => $movie->id,
-                            'title' => $movie->title
-                        ]);
+        try {
+            for ($pageIndex = 1; $pageIndex <= $numberOfPages; $pageIndex++) {
+                $response = Http::get(
+                    sprintf(
+                        '%s/3/trending/all/day?page=%d&api_key=%s',
+                        self::URL,
+                        $pageIndex,
+                        self::API_KEY
+                    )
+                );
+        
+                $movies = $response->object()->results;
+        
+                if ($response->successful()) {
+                    foreach ($movies as $movie) {
+                        if (property_exists($movie, 'title')) {
+                            $existingMovie = Movie::find($movie->id);
+        
+                            if (!$existingMovie) {
+                                Movie::create([
+                                    'id' => $movie->id,
+                                    'title' => $movie->title
+                                ]);
+                            }
+                        }
                     }
+                } else {
+                    $this->error('Erreur lors de la récupération des données : ' . $response->status());
                 }
-            } else {
-                $this->error('Erreur lors de la récupération des données : ' . $response->status());
             }
-        }
+        } catch (Exception $e) {
+                $this->error('Erreur lors de la sauvegarde des données : ' . $e->getMessage());
+        }   
     }
 }
