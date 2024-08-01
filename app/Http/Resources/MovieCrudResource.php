@@ -20,6 +20,9 @@ class MovieCrudResource extends JsonResource
         return [
             "id" => $this->id ?? null,
             "title" => $this->title ?? null,
+            "overview" => $this->overview ?? null,
+            "revenue" => $this->revenue ?? null,
+            "popularity" => $this->popularity ?? null,
         ];
     }
 }

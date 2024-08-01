@@ -55,6 +55,52 @@ export default function Create({ auth, user }) {
 
                 <InputError message={errors.name} className="mt-2" />
               </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="overview" value="Overview" />
+
+                <textarea
+                  id="overview"
+                  type="text"
+                  name="overview"
+                  value={user.overview}
+                  className="mt-1 block w-full"
+                  isFocused={true}
+                  style={{height:'90px'}}
+                />
+
+                <InputError message={errors.overview} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="revenue" value="Revenue" />
+
+                <TextInput
+                  id="revenue"
+                  type="text"
+                  name="revenue"
+                  value={user.revenue}
+                  className="mt-1 block w-full"
+                  isFocused={true}
+                />
+
+                <InputError message={errors.revenue} className="mt-2" />
+              </div>
+
+              <div className="mt-4">
+                <InputLabel htmlFor="revenue" value="Revenue" />
+
+                <TextInput
+                  id="popularity"
+                  type="text"
+                  name="popularity"
+                  value={user.popularity}
+                  className="mt-1 block w-full"
+                  isFocused={true}
+                />
+
+                <InputError message={errors.popularity} className="mt-2" />
+              </div>
              
 
               <div className="mt-4 text-right">
