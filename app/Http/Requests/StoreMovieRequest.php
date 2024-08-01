@@ -24,6 +24,9 @@ class StoreMovieRequest extends FormRequest
     {
         return [
             "title" => ["required", "string", "max:255"],
+            "overview" => ["required", "string", "max:255"],
+            "revenue" => ["required", "string", "max:255"],
+            "popularity" => ["required", "string", "max:255"],
         ];
     }
 }
