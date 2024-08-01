@@ -95,16 +95,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
                       >
                         Email
                       </TableHeading>
-
-                      <TableHeading
-                        name="created_at"
-                        sort_field={queryParams.sort_field}
-                        sort_direction={queryParams.sort_direction}
-                        sortChanged={sortChanged}
-                      >
-                        Create Date
-                      </TableHeading>
-
                     </tr>
                   </thead>
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
@@ -147,17 +137,8 @@ export default function Index({ auth, users, queryParams = null, success }) {
                           {user.name}
                         </th>
                         <td className="px-3 py-2">{user.email}</td>
-                        <td className="px-3 py-2 text-nowrap">
-                          {user.created_at}
-                        </td>
-                        <td className="px-3 py-2 text-nowrap">
-                          <Link
-                            href={route("user.edit", user.id)}
-                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                          >
-                            Edit
-                          </Link>
-                        </td>
+                      
+                       
                       </tr>
                     ))}
                   </tbody>

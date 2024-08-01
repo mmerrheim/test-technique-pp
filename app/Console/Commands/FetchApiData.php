@@ -27,21 +27,26 @@ class FetchApiData extends Command
      */
     public function handle()
     {
-        $response = Http::get('https://api.themoviedb.org/3/trending/all/day?api_key=9f72e720a712b60c0e998e14939b3be9');
-        
-        $movies = $response->object()->results;
+        $numberOfPages = 10;
 
-        if ($response->successful()) {
-            foreach ($movies as $movie) {
-                if (property_exists($movie, 'title')) {
-                    Movie::create([
-                        'id' => $movie->id,
-                        'title' => $movie->title
-                    ]);
+        for ($i=1; $i<=$numberOfPages;$i++) {
+            $response = Http::get('https://api.themoviedb.org/3/trending/all/day?page='.$i.'&api_key=9f72e720a712b60c0e998e14939b3be9');
+        
+            $movies = $response->object()->results;
+    
+            if ($response->successful()) {
+                foreach ($movies as $movie) {
+                    if (property_exists($movie, 'title')) {
+                        Movie::create([
+                            'id' => $movie->id,
+                            'title' => $movie->title
+                        ]);
+                    }
                 }
+            } else {
+                $this->error('Erreur lors de la récupération des données : ' . $response->status());
             }
-        } else {
-            $this->error('Erreur lors de la récupération des données : ' . $response->status());
         }
+
     }
 }

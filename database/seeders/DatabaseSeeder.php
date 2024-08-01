@@ -14,16 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
             'id' => 1,
             'name' => 'user',
             'email' => 'user@test.com',
             'password' => bcrypt('user123'),
             'email_verified_at' => time()
-        ]);
-
-     
+        ]);    
     }
 }

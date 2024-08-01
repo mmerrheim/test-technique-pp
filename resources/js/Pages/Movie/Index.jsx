@@ -128,7 +128,7 @@ export default function Index({ auth, movies, queryParams = null, success }) {
                   </tbody>
                 </table>
               </div>
-              {/* <Pagination links={users.meta.links} /> */}
+              <Pagination links={movies.meta.links} />
             </div>
           </div>
         </div>
