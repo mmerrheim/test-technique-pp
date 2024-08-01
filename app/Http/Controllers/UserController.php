@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserCrudResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -77,23 +76,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserRequest $request, User $user)
-    {
-        $data = $request->validated();
-        $password = $data['password'] ?? null;
-        if ($password) {
-            $data['password'] = bcrypt($password);
-        } else {
-            unset($data['password']);
-        }
-        $user->update($data);
-
-        return to_route('user.index')
-            ->with('success', "User \"$user->name\" was updated");
-    }
+  
 
     /**
      * Remove the specified resource from storage.

@@ -1,5 +1,6 @@
 {
     "private": true,
+    "name": "test-technique",
     "type": "module",
     "scripts": {
         "dev": "vite",

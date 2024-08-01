@@ -19,20 +19,15 @@ class MovieController extends Controller
             $query->where("title", "like", "%" . request("title") . "%");
         }
         
-        $users = $query
+        $movies = $query
             ->paginate(10)
             ->onEachSide(1);
         
         return inertia("Movie/Index", [
-            "users" => MovieCrudResource::collection($users),
+            "movies" => MovieCrudResource::collection($movies),
             'queryParams' => request()->query() ?: null,
             'success' => session('success'),
         ]);
-    }
-
-    public function create()
-    {
-        return inertia("Movie/Create");
     }
 
     public function store(StoreMovieRequest $request)

@@ -4,7 +4,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import TableHeading from "@/Components/TableHeading";
 
-export default function Index({ auth, users, queryParams = null, success }) {
+export default function Index({ auth, movies, queryParams = null, success }) {
   queryParams = queryParams || {};
   const searchFieldChanged = (name, value) => {
     if (value) {
@@ -34,13 +34,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
       queryParams.sort_direction = "asc";
     }
     router.get(route("user.index"), queryParams);
-  };
-
-  const deleteUser = (user) => {
-    if (!window.confirm("Are you sure you want to delete the user?")) {
-      return;
-    }
-    router.delete(route("user.destroy", user.id));
   };
 
   return (
@@ -86,26 +79,9 @@ export default function Index({ auth, users, queryParams = null, success }) {
                       >
                         Name
                       </TableHeading>
+                      
 
-                      <TableHeading
-                        name="email"
-                        sort_field={queryParams.sort_field}
-                        sort_direction={queryParams.sort_direction}
-                        sortChanged={sortChanged}
-                      >
-                        Email
-                      </TableHeading>
-
-                      <TableHeading
-                        name="created_at"
-                        sort_field={queryParams.sort_field}
-                        sort_direction={queryParams.sort_direction}
-                        sortChanged={sortChanged}
-                      >
-                        Create Date
-                      </TableHeading>
-
-                      <th className="px-3 py-3 text-right">Actions</th>
+                      
                     </tr>
                   </thead>
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
@@ -122,48 +98,30 @@ export default function Index({ auth, users, queryParams = null, success }) {
                           onKeyPress={(e) => onKeyPress("title", e)}
                         />
                       </th>
-                      <th className="px-3 py-3">
-                        <TextInput
-                          className="w-full"
-                          defaultValue={queryParams.email}
-                          placeholder="User Email"
-                          onBlur={(e) =>
-                            searchFieldChanged("email", e.target.value)
-                          }
-                          onKeyPress={(e) => onKeyPress("email", e)}
-                        />
-                      </th>
-                      <th className="px-3 py-3"></th>
-                      <th className="px-3 py-3"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users.data.map((user) => (
+                    {movies.data.map((movie) => (
                       <tr
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                        key={user.id}
+                        key={movie.id}
                       >
-                        <td className="px-3 py-2">{user.id}</td>
+                        <td className="px-3 py-2">{movie.id}</td>
                         <th className="px-3 py-2 text-gray-100 text-nowrap">
-                          {user.title}
+                          {movie.title}
                         </th>
-                        <td className="px-3 py-2">{user.email}</td>
+                        <td className="px-3 py-2">{movie.email}</td>
                         <td className="px-3 py-2 text-nowrap">
-                          {user.created_at}
+                          {movie.created_at}
                         </td>
                         <td className="px-3 py-2 text-nowrap">
                           <Link
-                            href={route("movie.edit", user.id)}
+                            href={route("movie.edit", movie.id)}
                             className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
                           >
-                            Edit
+                            Show
                           </Link>
-                          <button
-                            onClick={(e) => deleteUser(user)}
-                            className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                          >
-                            Delete
-                          </button>
+                         
                         </td>
                       </tr>
                     ))}

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -13,11 +12,7 @@ use Inertia\Inertia;
 Route::redirect('/', '/movie');
 
 Route::middleware(['auth', 'verified'])->group(function () {
- 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
-
- 
+  
     Route::resource('user', UserController::class);
     Route::resource('movie', MovieController::class);
 });

@@ -105,7 +105,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
                         Create Date
                       </TableHeading>
 
-                      <th className="px-3 py-3 text-right">Actions</th>
                     </tr>
                   </thead>
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
@@ -158,12 +157,6 @@ export default function Index({ auth, users, queryParams = null, success }) {
                           >
                             Edit
                           </Link>
-                          <button
-                            onClick={(e) => deleteUser(user)}
-                            className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                          >
-                            Delete
-                          </button>
                         </td>
                       </tr>
                     ))}
